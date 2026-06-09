@@ -1,0 +1,15 @@
+# Original source images (kept locally, not part of the theme — copies live in /assets)
+src-images/
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+
+# Shopify CLI
+.shopify/
+*.zip

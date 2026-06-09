@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "shipping_note": "Complimentary express shipping on numbered orders over $150."
+      }
+    }
+  },
+  "order": ["main"]
+}

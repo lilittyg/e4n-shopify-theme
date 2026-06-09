@@ -1,0 +1,17 @@
+<section class="page-hero section" data-section-type="page">
+  <div class="container" style="max-width:900px">
+    <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+    <h1 class="h-xl" data-reveal data-reveal-delay="1">{{ page.title }}</h1>
+    <div class="prose mt-l" data-reveal data-reveal-delay="2">{{ page.content }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "E4N" }
+  ]
+}
+{% endschema %}

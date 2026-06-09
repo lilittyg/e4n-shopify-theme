@@ -1,0 +1,27 @@
+<section class="page-hero section" data-section-type="list-collections">
+  <div class="container">
+    <p class="eyebrow" data-reveal>The Archive</p>
+    <h1 class="h-xl" data-reveal data-reveal-delay="1">Collections</h1>
+
+    <div class="section" style="padding-top:clamp(28px,4vw,48px)">
+      <div class="lookbook">
+        {%- for collection in collections -%}
+          <a class="lookbook__item {% cycle 'lb-wide','lb-tall','lb-third','lb-third','lb-third' %} img-reveal" href="{{ collection.url }}" data-reveal>
+            {%- if collection.featured_image -%}
+              <img src="{{ collection.featured_image | image_url: width: 1400 }}" alt="{{ collection.title | escape }}" loading="lazy">
+            {%- else -%}
+              <img src="{{ 'hero-rooftop.png' | asset_url }}" alt="{{ collection.title | escape }}" loading="lazy">
+            {%- endif -%}
+            <span class="lookbook__cap">{{ collection.title }} →</span>
+          </a>
+        {%- else -%}
+          <a class="lookbook__item lb-wide img-reveal" href="{{ routes.all_products_collection_url }}"><img src="{{ 'hero-rooftop.png' | asset_url }}" alt="City Night Limited Drop"><span class="lookbook__cap">City Night Limited Drop →</span></a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collections list", "tag": "section", "settings": [] }
+{% endschema %}

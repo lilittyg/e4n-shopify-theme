@@ -1,0 +1,220 @@
+{%- liquid
+  assign has_product = false
+  if product != blank and product.id
+    assign has_product = true
+  endif
+-%}
+
+<section class="section page-hero" data-section-type="product" style="padding-top: calc(var(--header-h) + 40px)">
+  <div class="container">
+    {%- if has_product -%}
+      {%- comment -%} ============ REAL SHOPIFY PRODUCT ============ {%- endcomment -%}
+      <div class="product">
+        <div class="product__gallery" data-gallery>
+          <div class="product__main-img img-reveal" data-gallery-main>
+            <img src="{{ product.featured_image | image_url: width: 1400 }}" alt="{{ product.featured_image.alt | escape | default: product.title }}" width="1120" height="1400">
+          </div>
+          {%- if product.images.size > 1 -%}
+            <div class="product__thumbs">
+              {%- for image in product.images limit: 6 -%}
+                <button class="product__thumb {% if forloop.first %}is-active{% endif %}" data-gallery-thumb data-src="{{ image | image_url: width: 1400 }}" aria-label="View image {{ forloop.index }}">
+                  <img src="{{ image | image_url: width: 200 }}" alt="" loading="lazy">
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="product__info">
+          {%- if product.vendor != blank -%}<p class="eyebrow" data-reveal>{{ product.vendor }}</p>{%- endif -%}
+          <h1 class="product__title font-head" data-reveal>{{ product.title }}</h1>
+
+          <div class="product__price" data-reveal data-price-target>
+            {%- if product.compare_at_price > product.price -%}
+              <del style="color:var(--silver-dim)">{{ product.compare_at_price | money }}</del> {{ product.price | money }}
+            {%- else -%}
+              {{ product.price | money }}
+            {%- endif -%}
+          </div>
+
+          {%- form 'product', product, data-product-form: '', class: 'product__form' -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-variant-id>
+
+            {%- unless product.has_only_default_variant -%}
+              {%- for option in product.options_with_values -%}
+                <div class="option" data-swatches data-option-index="{{ forloop.index0 }}">
+                  <div class="option__label">
+                    <span>{{ option.name }}</span>
+                    {%- if option.name == 'Size' -%}<a href="#size-guide">Size Guide</a>{%- endif -%}
+                  </div>
+                  <div class="swatches">
+                    {%- for value in option.values -%}
+                      <button type="button" class="swatch {% if option.selected_value == value %}is-active{% endif %}" data-value="{{ value | escape }}">{{ value }}</button>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endfor -%}
+            {%- endunless -%}
+
+            <div class="option">
+              <div class="option__label"><span>Quantity</span></div>
+              <div class="qty">
+                <button type="button" data-qty-btn="down" aria-label="Decrease">&minus;</button>
+                <input type="text" name="quantity" value="1" min="1" inputmode="numeric">
+                <button type="button" data-qty-btn="up" aria-label="Increase">+</button>
+              </div>
+            </div>
+
+            <div class="product__buy">
+              <button type="submit" class="btn btn--block" data-atc {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+                {%- if product.selected_or_first_available_variant.available -%}{{ 'products.add_to_cart' | t | default: 'Add to Bag' }}{%- else -%}{{ 'products.sold_out' | t | default: 'Sold Out' }}{%- endif -%}
+              </button>
+            </div>
+          {%- endform -%}
+
+          <div class="shipping-note">{% render 'icon', icon: 'truck' %}<span>{{ section.settings.shipping_note | default: 'Complimentary express shipping on numbered orders over $150.' }}</span></div>
+
+          {%- if product.description != blank -%}
+            <div class="product__desc" data-reveal>{{ product.description }}</div>
+          {%- endif -%}
+
+          {% render 'product-accordion', section: section %}
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var variants = {{ product.variants | json }};
+          var form = document.querySelector('[data-product-form]');
+          if (!form) return;
+          var idInput = form.querySelector('[data-variant-id]');
+          var priceTarget = document.querySelector('[data-price-target]');
+          var atc = form.querySelector('[data-atc]');
+          var groups = form.querySelectorAll('[data-swatches]');
+          function selected() {
+            var opts = [];
+            groups.forEach(function (g) {
+              var a = g.querySelector('.swatch.is-active');
+              opts.push(a ? a.getAttribute('data-value') : null);
+            });
+            return opts;
+          }
+          function money(c) { return (window.E4N && window.E4N.moneyFormat ? window.E4N.moneyFormat.replace(/\{\{\s*amount\s*\}\}/, (c/100).toFixed(2)) : '$' + (c/100).toFixed(2)); }
+          function update() {
+            var sel = selected();
+            var match = variants.find(function (v) {
+              return v.options.every(function (o, i) { return sel[i] == null || o === sel[i]; });
+            });
+            if (!match) return;
+            idInput.value = match.id;
+            if (priceTarget) priceTarget.innerHTML = match.compare_at_price > match.price ? '<del style="color:var(--silver-dim)">' + money(match.compare_at_price) + '</del> ' + money(match.price) : money(match.price);
+            if (atc) {
+              atc.disabled = !match.available;
+              atc.textContent = match.available ? 'Add to Bag' : 'Sold Out';
+            }
+          }
+          groups.forEach(function (g) {
+            g.querySelectorAll('.swatch').forEach(function (sw) {
+              sw.addEventListener('click', function () {
+                g.querySelectorAll('.swatch').forEach(function (s) { s.classList.remove('is-active'); });
+                sw.classList.add('is-active');
+                update();
+              });
+            });
+          });
+        })();
+      </script>
+
+    {%- else -%}
+      {%- comment -%} ============ DEMO / PLACEHOLDER PRODUCT ============ {%- endcomment -%}
+      <div class="product">
+        <div class="product__gallery" data-gallery>
+          <div class="product__main-img img-reveal" data-gallery-main>
+            <img src="{{ 'hoodie-front.png' | asset_url }}" alt="Midnight Heavyweight Hoodie" width="1120" height="1400">
+          </div>
+          <div class="product__thumbs">
+            <button class="product__thumb is-active" data-gallery-thumb data-src="{{ 'hoodie-front.png' | asset_url }}"><img src="{{ 'hoodie-front.png' | asset_url }}" alt=""></button>
+            <button class="product__thumb" data-gallery-thumb data-src="{{ 'hoodie-back.png' | asset_url }}"><img src="{{ 'hoodie-back.png' | asset_url }}" alt=""></button>
+            <button class="product__thumb" data-gallery-thumb data-src="{{ 'lookbook-1.png' | asset_url }}"><img src="{{ 'lookbook-1.png' | asset_url }}" alt=""></button>
+          </div>
+        </div>
+
+        <div class="product__info">
+          <p class="eyebrow">E4N · Limited Run 001</p>
+          <h1 class="product__title font-head">Midnight Heavyweight Hoodie</h1>
+          <div class="product__price">$180.00</div>
+
+          <form class="product__form" data-product-form onsubmit="return false">
+            <input type="hidden" name="id" value="demo">
+            <div class="option" data-swatches>
+              <div class="option__label"><span>Size</span><a href="#size-guide">Size Guide</a></div>
+              <div class="swatches">
+                <button type="button" class="swatch" data-value="XS">XS</button>
+                <button type="button" class="swatch is-active" data-value="S">S</button>
+                <button type="button" class="swatch" data-value="M">M</button>
+                <button type="button" class="swatch" data-value="L">L</button>
+                <button type="button" class="swatch" data-value="XL">XL</button>
+                <button type="button" class="swatch is-soldout" data-value="XXL">XXL</button>
+              </div>
+            </div>
+            <div class="option">
+              <div class="option__label"><span>Quantity</span></div>
+              <div class="qty">
+                <button type="button" data-qty-btn="down">&minus;</button>
+                <input type="text" name="quantity" value="1" min="1" inputmode="numeric">
+                <button type="button" data-qty-btn="up">+</button>
+              </div>
+            </div>
+            <div class="product__buy">
+              <button type="submit" class="btn btn--block">Add to Bag</button>
+            </div>
+          </form>
+
+          <div class="shipping-note">{% render 'icon', icon: 'truck' %}<span>Complimentary express shipping on numbered orders over $150.</span></div>
+
+          <div class="product__desc">
+            <p>A 480gsm brushed-back heavyweight, garment-dyed in onyx and finished with a tonal skyline graphic across the back. Cut boxy, built to outlast the night. Numbered on the inner placket — one of 200.</p>
+            <p>100% heavyweight cotton. Made in limited runs. When it's gone, it's gone.</p>
+          </div>
+
+          {% render 'product-accordion', section: section %}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Related products {%- endcomment -%}
+    <div class="section" style="padding-bottom:0">
+      <div class="section-head"><div class="section-head__titles"><p class="eyebrow">More from the run</p><h2 class="h-md">You May Also Want</h2></div></div>
+      <div class="product-grid" style="--cols:4">
+        {%- if has_product and product.collections.first.products.size > 1 -%}
+          {%- assign shown = 0 -%}
+          {%- for p in product.collections.first.products -%}
+            {%- unless p.id == product.id -%}{% render 'product-card', product: p, quick_shop: true %}{%- assign shown = shown | plus: 1 -%}{%- endunless -%}
+            {%- if shown >= 4 -%}{%- break -%}{%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          {% render 'product-card-demo', title: 'Skyline Graphic Tee', price: '$85.00', img_front: 'shirt-front.png', img_back: 'shirt-back.png', badge: 'Limited', url: '/products/skyline-tee' %}
+          {% render 'product-card-demo', title: 'After Hours Hoodie — Onyx', price: '$180.00', img_front: 'hoodie-back.png', img_back: 'hoodie-front.png', url: '/products/after-hours-hoodie' %}
+          {% render 'product-card-demo', title: 'Rooftop Long Sleeve', price: '$95.00', compare: '$120.00', img_front: 'shirt-back.png', img_back: 'shirt-front.png', badge: 'Sale', url: '/products/rooftop-ls' %}
+          {% render 'product-card-demo', title: 'Concrete Cap', price: '$55.00', img_front: 'editorial-extra.jpg', url: '/products/concrete-cap' %}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "shipping_note", "label": "Shipping note", "default": "Complimentary express shipping on numbered orders over $150." },
+    { "type": "header", "content": "Shipping accordion" },
+    { "type": "richtext", "id": "shipping_text", "label": "Shipping text", "default": "<p>Numbered orders ship within 2 business days via tracked express. Free over $150. International duties calculated at checkout.</p>" },
+    { "type": "header", "content": "Returns accordion" },
+    { "type": "richtext", "id": "returns_text", "label": "Returns text", "default": "<p>Unworn pieces may be returned within 14 days of delivery. Numbered limited releases are final sale unless faulty.</p>" },
+    { "type": "header", "content": "Product care accordion" },
+    { "type": "richtext", "id": "care_text", "label": "Care text", "default": "<p>Wash cold inside-out. Hang to dry. Do not iron graphics. Treat it like it's one of 200 — because it is.</p>" }
+  ]
+}
+{% endschema %}

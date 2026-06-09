@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "about",
+      "blocks": {
+        "lead": { "type": "lead", "settings": { "text": "<p>A dark luxury streetwear label made in numbered runs. Forged for the hours after midnight.</p>" } },
+        "s1": { "type": "split", "settings": { "eyebrow": "Origin", "heading": "After Midnight", "fallback": "lookbook-1.png", "body": "<p>E4N began in the hours when the city empties and the only honest version of you is left. Placeholder copy — replace with the founding story.</p>" } },
+        "s2": { "type": "split", "settings": { "reverse": true, "eyebrow": "The Runs", "heading": "Made in Numbers", "fallback": "lookbook-3.png", "body": "<p>Every release is finite. Numbered, logged, and never restocked. Ownership is proof you were there.</p>" } },
+        "quote": { "type": "quote", "settings": { "text": "Forged for the hours after midnight." } },
+        "ph": { "type": "placeholder", "settings": { "label": "Brand story — coming soon", "text": "This space is reserved for future brand-story content, campaign films, and the full E4N manifesto." } }
+      },
+      "block_order": ["lead", "s1", "s2", "quote", "ph"],
+      "settings": { "eyebrow": "The Label", "title": "E4N", "subtitle": "Everything 4 Nothing" }
+    }
+  },
+  "order": ["main"]
+}

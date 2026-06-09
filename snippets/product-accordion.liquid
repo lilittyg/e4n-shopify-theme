@@ -1,0 +1,21 @@
+{%- comment -%} Shipping / Returns / Care accordion for product page. Param: section {%- endcomment -%}
+<div class="accordion" data-accordion>
+  <div class="accordion__item">
+    <button class="accordion__trigger" aria-expanded="false">Shipping <span class="accordion__icon"></span></button>
+    <div class="accordion__panel"><div class="accordion__panel-inner">
+      {{ section.settings.shipping_text | default: '<p>Numbered orders ship within 2 business days via tracked express. Free over $150. International duties calculated at checkout.</p>' }}
+    </div></div>
+  </div>
+  <div class="accordion__item">
+    <button class="accordion__trigger" aria-expanded="false">Returns <span class="accordion__icon"></span></button>
+    <div class="accordion__panel"><div class="accordion__panel-inner">
+      {{ section.settings.returns_text | default: '<p>Unworn pieces may be returned within 14 days of delivery. Numbered limited releases are final sale unless faulty.</p>' }}
+    </div></div>
+  </div>
+  <div class="accordion__item">
+    <button class="accordion__trigger" aria-expanded="false">Product Care <span class="accordion__icon"></span></button>
+    <div class="accordion__panel"><div class="accordion__panel-inner">
+      {{ section.settings.care_text | default: '<p>Wash cold inside-out. Hang to dry. Do not iron graphics. Treat it like it is one of 200 — because it is.</p>' }}
+    </div></div>
+  </div>
+</div>

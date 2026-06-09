@@ -1,0 +1,69 @@
+<section class="page-hero section" data-section-type="faq">
+  <div class="container">
+    <p class="eyebrow" data-reveal>{{ section.settings.eyebrow | default: 'Client Care' }}</p>
+    <h1 class="h-xl" data-reveal data-reveal-delay="1">{{ section.settings.title | default: 'Frequently Asked' }}</h1>
+    {%- if section.settings.intro != blank -%}<p class="lead mt-s" style="max-width:54ch" data-reveal data-reveal-delay="2">{{ section.settings.intro }}</p>{%- endif -%}
+
+    <div style="max-width:860px">
+      {%- assign current_cat = '' -%}
+      {%- for block in section.blocks -%}
+        {%- if block.settings.category != current_cat -%}
+          {%- unless forloop.first -%}</div>{%- endunless -%}
+          <div class="faq-cat" data-reveal {{ block.shopify_attributes }}>
+            <p class="faq-cat__label">{{ block.settings.category }}</p>
+            <div class="accordion" data-accordion>
+          {%- assign current_cat = block.settings.category -%}
+        {%- endif -%}
+            <div class="accordion__item">
+              <button class="accordion__trigger" aria-expanded="false">{{ block.settings.question }} <span class="accordion__icon"></span></button>
+              <div class="accordion__panel"><div class="accordion__panel-inner">{{ block.settings.answer }}</div></div>
+            </div>
+        {%- if forloop.last -%}</div></div>{%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="text-center mt-l" data-reveal>
+      <p class="lead">Still have a question?</p>
+      <div class="mt-s"><a class="btn btn--ghost" href="/pages/contact">Contact the Atelier</a></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Client Care" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Frequently Asked" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Everything you need to know about orders, sizing, and the numbered runs." }
+  ],
+  "blocks": [
+    {
+      "type": "qa", "name": "Q&A",
+      "settings": [
+        { "type": "text", "id": "category", "label": "Category", "info": "Consecutive blocks with the same category are grouped.", "default": "Shipping" },
+        { "type": "text", "id": "question", "label": "Question", "default": "How long does shipping take?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Numbered orders ship within 2 business days via tracked express.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "qa", "settings": { "category": "Shipping", "question": "How long does shipping take?", "answer": "<p>Orders ship within 2 business days via tracked express. Domestic 2–4 days, international 5–10 days. Free shipping over $150.</p>" } },
+        { "type": "qa", "settings": { "category": "Shipping", "question": "Do you ship internationally?", "answer": "<p>Yes — worldwide. Duties and taxes are calculated at checkout for most regions.</p>" } },
+        { "type": "qa", "settings": { "category": "Returns", "question": "What is your return policy?", "answer": "<p>Unworn pieces may be returned within 14 days of delivery. Numbered limited releases are final sale unless faulty.</p>" } },
+        { "type": "qa", "settings": { "category": "Returns", "question": "How do I start a return?", "answer": "<p>Email the atelier with your order number and we'll issue a prepaid label for eligible items.</p>" } },
+        { "type": "qa", "settings": { "category": "Sizing", "question": "How do E4N pieces fit?", "answer": "<p>Cut boxy and oversized by design. Size down for a regular fit. Detailed measurements are on each product page.</p>" } },
+        { "type": "qa", "settings": { "category": "Sizing", "question": "Is there a size guide?", "answer": "<p>Yes — a garment measurement chart is linked from every product page under the size selector.</p>" } },
+        { "type": "qa", "settings": { "category": "Orders", "question": "Can I change or cancel my order?", "answer": "<p>Contact us within 2 hours of ordering. Once a numbered piece enters fulfilment it can't be changed.</p>" } },
+        { "type": "qa", "settings": { "category": "Orders", "question": "What does \"numbered run\" mean?", "answer": "<p>Each release is produced in a finite, numbered quantity and never restocked. Your piece carries its own number.</p>" } },
+        { "type": "qa", "settings": { "category": "Product Care", "question": "How should I care for my piece?", "answer": "<p>Wash cold inside-out, hang to dry, and never iron directly over graphics.</p>" } },
+        { "type": "qa", "settings": { "category": "Product Care", "question": "Will the graphics fade?", "answer": "<p>Cared for as directed, prints hold. Heat and tumble-drying are the enemy.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

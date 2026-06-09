@@ -1,0 +1,95 @@
+<section class="page-hero section" data-section-type="about" style="padding-bottom:0">
+  <div class="container">
+    <p class="eyebrow" data-reveal>{{ section.settings.eyebrow | default: 'The Label' }}</p>
+    <h1 class="display" style="font-size:clamp(3rem,12vw,9rem)" data-reveal data-reveal-delay="1">{{ section.settings.title | default: 'E4N' }}</h1>
+    <p class="font-brand h-lg mt-s" data-reveal data-reveal-delay="2">{{ section.settings.subtitle | default: 'Everything 4 Nothing' }}</p>
+  </div>
+</section>
+
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when 'lead' -%}
+      <section class="section" {{ block.shopify_attributes }}>
+        <div class="container" style="max-width:1000px">
+          <p class="h-md font-head" data-reveal>{{ block.settings.text }}</p>
+        </div>
+      </section>
+
+    {%- when 'split' -%}
+      <section class="section" {{ block.shopify_attributes }}>
+        <div class="container">
+          <div class="editorial-split {% if block.settings.reverse %}editorial-split--reverse{% endif %}">
+            <div class="editorial-media img-reveal" data-reveal>
+              {%- if block.settings.image != blank -%}
+                <img src="{{ block.settings.image | image_url: width: 1400 }}" alt="{{ block.settings.heading | escape }}" loading="lazy">
+              {%- else -%}
+                <img src="{{ block.settings.fallback | default: 'lookbook-1.png' | asset_url }}" alt="" loading="lazy">
+              {%- endif -%}
+            </div>
+            <div class="prose" data-reveal data-reveal-delay="1">
+              {%- if block.settings.eyebrow != blank -%}<p class="eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
+              {%- if block.settings.heading != blank -%}<h2 class="h-lg mt-s">{{ block.settings.heading }}</h2>{%- endif -%}
+              {{ block.settings.body }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+    {%- when 'quote' -%}
+      <section class="statement section" {{ block.shopify_attributes }}>
+        <div class="statement__inner">
+          <h2 class="statement__title font-brand" data-reveal>{{ block.settings.text }}</h2>
+        </div>
+      </section>
+
+    {%- when 'placeholder' -%}
+      <section class="section" {{ block.shopify_attributes }}>
+        <div class="container" style="max-width:900px">
+          <div class="prose text-center" data-reveal>
+            <p class="eyebrow">{{ block.settings.label | default: 'Brand story — coming soon' }}</p>
+            <p class="lead mt-s">{{ block.settings.text }}</p>
+          </div>
+        </div>
+      </section>
+  {%- endcase -%}
+{%- endfor -%}
+
+{% schema %}
+{
+  "name": "About",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Label" },
+    { "type": "text", "id": "title", "label": "Title", "default": "E4N" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle (Owned font)", "default": "Everything 4 Nothing" }
+  ],
+  "blocks": [
+    { "type": "lead", "name": "Lead statement", "settings": [ { "type": "richtext", "id": "text", "label": "Text", "default": "<p>A dark luxury streetwear label made in numbered runs. Forged for the hours after midnight.</p>" } ] },
+    {
+      "type": "split", "name": "Image + text",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "select", "id": "fallback", "label": "Bundled fallback", "default": "lookbook-1.png", "options": [ { "value": "lookbook-1.png", "label": "Model 1" }, { "value": "lookbook-2.png", "label": "Model 2" }, { "value": "lookbook-3.png", "label": "Back" }, { "value": "hero-rooftop.png", "label": "Rooftop" } ] },
+        { "type": "checkbox", "id": "reverse", "label": "Image on right", "default": false },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Placeholder copy. Replace with the E4N origin story — where it started, who it's for, and what the numbered runs mean.</p>" }
+      ]
+    },
+    { "type": "quote", "name": "Full-bleed quote", "settings": [ { "type": "text", "id": "text", "label": "Quote", "default": "Forged for the hours after midnight." } ] },
+    { "type": "placeholder", "name": "Placeholder block", "settings": [ { "type": "text", "id": "label", "label": "Label", "default": "Brand story — coming soon" }, { "type": "textarea", "id": "text", "label": "Text", "default": "This space is reserved for future brand-story content, campaign films, and the full E4N manifesto." } ] }
+  ],
+  "presets": [
+    {
+      "name": "About",
+      "blocks": [
+        { "type": "lead" },
+        { "type": "split", "settings": { "eyebrow": "Origin", "heading": "After Midnight", "fallback": "lookbook-1.png" } },
+        { "type": "split", "settings": { "reverse": true, "eyebrow": "The Runs", "heading": "Made in Numbers", "fallback": "lookbook-3.png", "body": "<p>Every release is finite. Numbered, logged, and never restocked. Ownership is proof you were there.</p>" } },
+        { "type": "quote" },
+        { "type": "placeholder" }
+      ]
+    }
+  ]
+}
+{% endschema %}

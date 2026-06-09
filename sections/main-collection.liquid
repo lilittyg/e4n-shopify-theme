@@ -1,0 +1,85 @@
+{%- liquid
+  assign has_products = false
+  if collection != blank and collection.products.size > 0
+    assign has_products = true
+  endif
+-%}
+
+<div class="collection-hero">
+  <div class="container">
+    <p class="eyebrow" data-reveal>{{ section.settings.eyebrow | default: 'The Collection' }}</p>
+    <h1 class="display" style="font-size:clamp(2.6rem,8vw,6rem)" data-reveal data-reveal-delay="1">
+      {{ collection.title | default: 'City Night Limited Drop' }}
+    </h1>
+    {%- if collection.description != blank -%}
+      <div class="lead mt-s" style="max-width:60ch" data-reveal data-reveal-delay="2">{{ collection.description }}</div>
+    {%- elsif section.settings.description != blank -%}
+      <p class="lead mt-s" style="max-width:60ch" data-reveal data-reveal-delay="2">{{ section.settings.description }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+<div class="container">
+  <div class="collection-bar">
+    <div class="filter-group" data-filter-group>
+      <a class="chip {% unless current_tags %}is-active{% endunless %}" href="{{ collection.url | default: '#' }}">All</a>
+      {%- if collection.all_tags.size > 0 -%}
+        {%- for tag in collection.all_tags limit: 8 -%}
+          <a class="chip {% if current_tags contains tag %}is-active{% endif %}" href="{{ collection.url }}/{{ tag | handle }}">{{ tag }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <button class="chip" data-demo-filter>Hoodies</button>
+        <button class="chip" data-demo-filter>Tees</button>
+        <button class="chip" data-demo-filter>Outerwear</button>
+        <button class="chip" data-demo-filter>Accessories</button>
+      {%- endif -%}
+    </div>
+
+    <form class="sort" method="get">
+      <label class="visually-hidden" for="sortBy">Sort</label>
+      <select id="sortBy" name="sort_by" onchange="this.form.submit()">
+        {%- assign sort = collection.sort_by | default: collection.default_sort_by -%}
+        <option value="manual" {% if sort == 'manual' %}selected{% endif %}>Featured</option>
+        <option value="best-selling" {% if sort == 'best-selling' %}selected{% endif %}>Best Selling</option>
+        <option value="title-ascending" {% if sort == 'title-ascending' %}selected{% endif %}>A–Z</option>
+        <option value="price-ascending" {% if sort == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
+        <option value="price-descending" {% if sort == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
+        <option value="created-descending" {% if sort == 'created-descending' %}selected{% endif %}>Newest</option>
+      </select>
+    </form>
+  </div>
+
+  <div class="section" style="padding-top:clamp(28px,4vw,48px)">
+    <div class="product-grid" style="--cols:{{ section.settings.columns }}" data-demo-grid>
+      {%- if has_products -%}
+        {%- paginate collection.products by section.settings.per_page -%}
+          {%- for product in collection.products -%}
+            {% render 'product-card', product: product, quick_shop: true %}
+          {%- endfor -%}
+        {%- endpaginate -%}
+      {%- else -%}
+        {% render 'product-card-demo', title: 'Midnight Heavyweight Hoodie', price: '$180.00', img_front: 'hoodie-front.png', img_back: 'hoodie-back.png', badge: 'Limited · 001', url: '/products/midnight-hoodie' %}
+        {% render 'product-card-demo', title: 'Skyline Graphic Tee', price: '$85.00', img_front: 'shirt-front.png', img_back: 'shirt-back.png', badge: 'Limited · 001', url: '/products/skyline-tee' %}
+        {% render 'product-card-demo', title: 'After Hours Hoodie — Onyx', price: '$180.00', img_front: 'hoodie-back.png', img_back: 'hoodie-front.png', url: '/products/after-hours-hoodie' %}
+        {% render 'product-card-demo', title: 'Rooftop Long Sleeve', price: '$95.00', compare: '$120.00', img_front: 'shirt-back.png', img_back: 'shirt-front.png', badge: 'Sale', url: '/products/rooftop-ls' %}
+        {% render 'product-card-demo', title: 'Concrete Cap', price: '$55.00', img_front: 'editorial-extra.jpg', url: '/products/concrete-cap' %}
+        {% render 'product-card-demo', title: 'Neon Reflection Tee', price: '$85.00', img_front: 'shirt-front.png', img_back: 'shirt-back.png', url: '/products/neon-tee' %}
+        {% render 'product-card-demo', title: 'Graphite Zip Hoodie', price: '$195.00', img_front: 'hoodie-front.png', img_back: 'hoodie-back.png', badge: 'New', url: '/products/graphite-zip' %}
+        {% render 'product-card-demo', title: 'Empty Streets Crewneck', price: '$140.00', img_front: 'lookbook-2.png', sold_out: true, url: '/products/empty-streets' %}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Collection" },
+    { "type": "textarea", "id": "description", "label": "Fallback description", "default": "Numbered pieces for the hours after midnight. Forged in charcoal, graphite, and onyx." },
+    { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Columns (desktop)", "default": 4 },
+    { "type": "range", "id": "per_page", "min": 8, "max": 48, "step": 4, "label": "Products per page", "default": 16 }
+  ]
+}
+{% endschema %}

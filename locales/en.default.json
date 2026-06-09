@@ -1,0 +1,49 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "newsletter": {
+      "subscribe": "Join",
+      "confirmation": "Welcome to the inner circle. Watch your inbox."
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search the archive"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "refresh_page": "Choosing a selection results in a full page refresh.",
+    "close": "Close",
+    "menu": "Menu"
+  },
+  "sections": {
+    "header": {
+      "navigation": "Primary",
+      "cart": "Cart",
+      "search": "Search",
+      "account": "Account"
+    },
+    "cart": {
+      "title": "Your Bag",
+      "empty": "Your bag is empty",
+      "remove": "Remove",
+      "subtotal": "Subtotal",
+      "taxes_note": "Shipping & taxes calculated at checkout.",
+      "checkout": "Proceed to Checkout"
+    }
+  },
+  "products": {
+    "quick_shop": "Quick Shop",
+    "from": "From",
+    "add_to_cart": "Add to Bag",
+    "sold_out": "Sold Out",
+    "size_guide": "Size Guide"
+  }
+}

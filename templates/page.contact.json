@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact",
+      "settings": {
+        "eyebrow": "Reach Us",
+        "title": "Contact",
+        "intro": "Questions about an order, a drop, or a collaboration? Send word.",
+        "email": "atelier@e4n.com",
+        "hours": "Mon–Fri · After 18:00",
+        "location": "New York · Online"
+      }
+    }
+  },
+  "order": ["main"]
+}

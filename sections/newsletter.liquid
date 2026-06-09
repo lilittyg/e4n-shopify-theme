@@ -1,0 +1,37 @@
+<section class="newsletter section" data-section-type="newsletter">
+  <div class="newsletter__inner">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="h-lg mt-s" data-reveal data-reveal-delay="1">{{ section.settings.heading | default: 'Join the Drop' }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="lead mt-s" data-reveal data-reveal-delay="2">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <div data-reveal data-reveal-delay="3">
+      {%- form 'customer', class: 'signup-form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="form-note">{{ 'general.newsletter.confirmation' | t | default: 'Welcome to the inner circle. Watch your inbox.' }}</p>
+        {%- else -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" placeholder="Email address" aria-label="Email" required>
+          <button type="submit" class="btn">{{ section.settings.button_label | default: 'Request Access' }}</button>
+        {%- endif -%}
+      {%- endform -%}
+      {%- if section.settings.note != blank -%}<p class="form-note">{{ section.settings.note }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Limited Access" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Join the Drop" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Be first to access future releases and limited collections." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Request Access" },
+    { "type": "text", "id": "note", "label": "Fine print", "default": "No noise. Only the drops." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

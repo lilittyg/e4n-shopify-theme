@@ -1,0 +1,28 @@
+{%- comment -%}
+  Placeholder product card used when no real Shopify collection/products
+  are connected yet. Params: title, price, compare, img_front, img_back,
+  badge, url, sold_out
+{%- endcomment -%}
+<article class="card" data-reveal>
+  <a class="card__media img-reveal" href="{{ url | default: '#' }}" aria-label="{{ title | escape }}">
+    {%- if badge != blank -%}<span class="card__badge">{{ badge }}</span>{%- endif -%}
+    <img class="card__img--front" src="{{ img_front | asset_url }}" alt="{{ title | escape }}" width="720" height="960" loading="lazy">
+    {%- if img_back != blank -%}
+      <img class="card__img--back" src="{{ img_back | asset_url }}" alt="{{ title | escape }} — back" width="720" height="960" loading="lazy">
+    {%- endif -%}
+    {%- unless sold_out -%}
+      <div class="card__quick"><span class="btn btn--ghost btn--block">Quick Shop</span></div>
+    {%- endunless -%}
+  </a>
+  <div class="card__body">
+    <h3 class="card__title"><a href="{{ url | default: '#' }}">{{ title }}</a></h3>
+    <div class="card__meta">
+      {%- if compare != blank -%}
+        <span class="price price--sale"><del>{{ compare }}</del>{{ price }}</span>
+      {%- else -%}
+        <span class="price">{{ price }}</span>
+      {%- endif -%}
+      {%- if sold_out -%}<span style="color:var(--silver-dim)">· Sold Out</span>{%- endif -%}
+    </div>
+  </div>
+</article>

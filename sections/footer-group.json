@@ -1,0 +1,35 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu_explore": {
+          "type": "menu",
+          "settings": { "heading": "Explore", "menu": "main-menu" }
+        },
+        "menu_help": {
+          "type": "menu",
+          "settings": { "heading": "Client Care", "menu": "footer" }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Join the Drop",
+            "text": "Be first to access future releases and limited collections."
+          }
+        }
+      },
+      "block_order": ["menu_explore", "menu_help", "newsletter"],
+      "settings": {
+        "statement": "A dark luxury streetwear label made in numbered runs. Forged for the hours after midnight.",
+        "tagline": "Everything 4 Nothing. Forged for the hours after midnight.",
+        "instagram": "https://instagram.com",
+        "tiktok": "https://tiktok.com",
+        "copyright": "All rights reserved. Made in numbered runs."
+      }
+    }
+  },
+  "order": ["footer"]
+}

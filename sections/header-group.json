@@ -1,0 +1,14 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "solid_header": false
+      }
+    }
+  },
+  "order": ["header"]
+}

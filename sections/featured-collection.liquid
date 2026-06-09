@@ -1,0 +1,48 @@
+{%- liquid
+  assign collection = section.settings.collection
+  assign limit = section.settings.products_to_show
+-%}
+<section class="section" data-section-type="featured-collection">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__titles">
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h2 class="h-lg" data-reveal>{{ section.settings.title | default: 'City Night Limited Drop' }}</h2>
+      </div>
+      {%- if section.settings.link_label != blank -%}
+        <a class="link-underline" data-reveal href="{{ section.settings.link_url | default: routes.all_products_collection_url }}">{{ section.settings.link_label }} →</a>
+      {%- endif -%}
+    </div>
+
+    <div class="product-grid" style="--cols: {{ section.settings.columns }}">
+      {%- if collection != blank and collection.products.size > 0 -%}
+        {%- for product in collection.products limit: limit -%}
+          {% render 'product-card', product: product, quick_shop: true %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Placeholder drop until a collection is connected {%- endcomment -%}
+        {% render 'product-card-demo', title: 'Midnight Heavyweight Hoodie', price: '$180.00', img_front: 'hoodie-front.png', img_back: 'hoodie-back.png', badge: 'Limited · 001', url: '/products/midnight-hoodie' %}
+        {% render 'product-card-demo', title: 'Skyline Graphic Tee', price: '$85.00', img_front: 'shirt-front.png', img_back: 'shirt-back.png', badge: 'Limited · 001', url: '/products/skyline-tee' %}
+        {% render 'product-card-demo', title: 'After Hours Hoodie — Onyx', price: '$180.00', img_front: 'hoodie-back.png', img_back: 'hoodie-front.png', url: '/products/after-hours-hoodie' %}
+        {% render 'product-card-demo', title: 'Rooftop Long Sleeve', price: '$95.00', compare: '$120.00', img_front: 'shirt-back.png', img_back: 'shirt-front.png', badge: 'Sale', url: '/products/rooftop-ls' %}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Drop" },
+    { "type": "text", "id": "title", "label": "Title", "default": "City Night Limited Drop" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Columns (desktop)", "default": 4 },
+    { "type": "range", "id": "products_to_show", "min": 2, "max": 12, "step": 1, "label": "Products to show", "default": 4 },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "View all" },
+    { "type": "url", "id": "link_url", "label": "Link URL" }
+  ],
+  "presets": [{ "name": "Featured collection" }]
+}
+{% endschema %}

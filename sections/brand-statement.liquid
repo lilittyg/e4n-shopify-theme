@@ -1,0 +1,38 @@
+{%- liquid
+  assign bg = section.settings.background_image
+-%}
+<section class="statement section" data-section-type="brand-statement">
+  {%- if bg != blank -%}
+    <div class="statement__bg" data-parallax="0.08"><img src="{{ bg | image_url: width: 2200 }}" alt="" loading="lazy"></div>
+  {%- elsif section.settings.use_default_bg -%}
+    <div class="statement__bg" data-parallax="0.08"><img src="{{ 'lookbook-3.png' | asset_url }}" alt="" loading="lazy"></div>
+  {%- endif -%}
+
+  <div class="statement__inner">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="statement__title font-brand mt-s" data-reveal data-reveal-delay="1">{{ section.settings.title | default: 'Everything 4 Nothing' }}</h2>
+    {%- if section.settings.body != blank -%}
+      <div class="statement__copy lead" data-reveal data-reveal-delay="2">{{ section.settings.body }}</div>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <div class="mt-l" data-reveal data-reveal-delay="3"><a class="btn btn--ghost" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a></div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand statement",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "checkbox", "id": "use_default_bg", "label": "Use bundled image if none chosen", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Ethos" },
+    { "type": "text", "id": "title", "label": "Headline (Owned font)", "default": "Everything 4 Nothing" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Ambition and emptiness. Purpose and obsession. Desire and the hollow space where fulfilment was supposed to live. We chase meaning through the long hours after midnight — and dress for the chase. Every piece is a numbered artefact of that pursuit: rare, deliberate, and gone when it's gone.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Read the Manifesto" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Brand statement" }]
+}
+{% endschema %}

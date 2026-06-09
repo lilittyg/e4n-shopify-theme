@@ -1,0 +1,67 @@
+{%- liquid
+  assign logo = section.settings.logo
+  assign menu = section.settings.menu
+-%}
+
+<header class="header" data-header {% if section.settings.solid_header %}data-header-solid{% endif %} role="banner">
+  <div class="header__inner">
+    <nav class="header__nav" aria-label="{{ 'sections.header.navigation' | t | default: 'Primary' }}">
+      {%- if linklists[menu].links.size > 0 -%}
+        {%- for link in linklists[menu].links limit: 5 -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.root_url }}">Home</a>
+        <a href="{{ routes.all_products_collection_url }}">Shop</a>
+        <a href="{{ pages['about'].url | default: '/pages/about' }}">About Us</a>
+        <a href="{{ pages['faq'].url | default: '/pages/faq' }}">FAQ</a>
+        <a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a>
+      {%- endif -%}
+    </nav>
+
+    <a class="header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }} — home">
+      {%- if logo != blank -%}
+        <img src="{{ logo | image_url: width: 240 }}" alt="{{ shop.name }}" width="120" height="38" loading="eager">
+      {%- else -%}
+        <img src="{{ 'e4n-logo.jpg' | asset_url }}" alt="{{ shop.name }}" width="120" height="38" loading="eager">
+      {%- endif -%}
+    </a>
+
+    <div class="header__actions">
+      <a class="header__icon" href="{{ routes.search_url }}" aria-label="Search">{% render 'icon', icon: 'search' %}</a>
+      <a class="header__icon" href="{{ routes.account_url }}" aria-label="Account">{% render 'icon', icon: 'account' %}</a>
+      <a class="header__icon header__cart" href="{{ routes.cart_url }}" data-cart-open aria-label="Cart">
+        {% render 'icon', icon: 'bag' %}
+        <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}style="display:none"{% endif %}>{{ cart.item_count }}</span>
+      </a>
+      <button class="header__icon header__burger" data-mobile-open aria-label="Menu">{% render 'icon', icon: 'menu' %}</button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" data-mobile-nav>
+  <button class="mobile-nav__close" data-mobile-close aria-label="Close menu">{% render 'icon', icon: 'close' %}</button>
+  {%- if linklists[menu].links.size > 0 -%}
+    {%- for link in linklists[menu].links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+  {%- else -%}
+    <a href="{{ routes.root_url }}">Home</a>
+    <a href="{{ routes.all_products_collection_url }}">Shop</a>
+    <a href="{{ pages['about'].url | default: '/pages/about' }}">About Us</a>
+    <a href="{{ pages['faq'].url | default: '/pages/faq' }}">FAQ</a>
+    <a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Upload the E4N logo. Defaults to the bundled logo asset." },
+    { "type": "link_list", "id": "menu", "label": "Navigation menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "solid_header", "label": "Always-dark header", "info": "On for inner pages so the transparent header doesn't sit over content. Leave off on the homepage for the transparent-over-hero effect.", "default": false }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

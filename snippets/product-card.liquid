@@ -1,0 +1,45 @@
+{%- comment -%}
+  Reusable product card.
+  Params: product (object), badge (string, optional), quick_shop (bool, optional)
+{%- endcomment -%}
+{%- liquid
+  assign img_front = product.featured_image
+  assign img_back = product.images[1]
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+-%}
+<article class="card" data-reveal>
+  <a class="card__media img-reveal" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+    {%- if badge != blank -%}<span class="card__badge">{{ badge }}</span>
+    {%- elsif on_sale -%}<span class="card__badge">Sale</span>
+    {%- elsif product.tags contains 'limited' -%}<span class="card__badge">Limited</span>{%- endif -%}
+
+    {%- if img_front != blank -%}
+      <img class="card__img--front" src="{{ img_front | image_url: width: 720 }}" alt="{{ product.title | escape }}" width="720" height="960" loading="lazy">
+    {%- else -%}
+      <img class="card__img--front" src="{{ 'hoodie-front.png' | asset_url }}" alt="{{ product.title | escape }}" width="720" height="960" loading="lazy">
+    {%- endif -%}
+    {%- if img_back != blank -%}
+      <img class="card__img--back" src="{{ img_back | image_url: width: 720 }}" alt="{{ product.title | escape }} — alternate" width="720" height="960" loading="lazy">
+    {%- endif -%}
+
+    {%- if quick_shop and product.available -%}
+      <div class="card__quick">
+        <span class="btn btn--ghost btn--block">{{ 'products.quick_shop' | t | default: 'Quick Shop' }}</span>
+      </div>
+    {%- endif -%}
+  </a>
+  <div class="card__body">
+    <h3 class="card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <div class="card__meta">
+      {%- if on_sale -%}
+        <span class="price price--sale"><del>{{ product.compare_at_price | money }}</del>{{ product.price | money }}</span>
+      {%- else -%}
+        <span class="price">{% if product.price_varies %}{{ 'products.from' | t | default: 'From' }} {% endif %}{{ product.price | money }}</span>
+      {%- endif -%}
+      {%- unless product.available -%}<span style="color:var(--silver-dim)">· Sold Out</span>{%- endunless -%}
+    </div>
+  </div>
+</article>

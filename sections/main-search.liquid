@@ -1,0 +1,30 @@
+<section class="page-hero section" data-section-type="search">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Search</p>
+    <h1 class="h-xl" data-reveal data-reveal-delay="1">Find Your Piece</h1>
+
+    <form action="{{ routes.search_url }}" method="get" class="signup-form" style="max-width:680px; margin-top:32px" role="search">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search the archive" aria-label="Search">
+      <button type="submit" class="btn">Search</button>
+    </form>
+
+    {%- if search.performed -%}
+      <p class="form-note" style="margin-top:18px">{{ search.results_count }} result(s) for &ldquo;{{ search.terms | escape }}&rdquo;</p>
+      <div class="section" style="padding-top:32px">
+        <div class="product-grid" style="--cols:4">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item, quick_shop: true %}
+            {%- endif -%}
+          {%- else -%}
+            <p class="lead">Nothing in the archive matches. Try another word.</p>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Search", "tag": "section", "settings": [] }
+{% endschema %}

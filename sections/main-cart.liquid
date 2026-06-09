@@ -1,0 +1,59 @@
+<section class="section page-hero" data-section-type="cart">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Your Selection</p>
+    <h1 class="h-xl" data-reveal data-reveal-delay="1">The Bag</h1>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" class="mt-l">
+        <div class="accordion" style="margin-top:24px">
+          {%- for item in cart.items -%}
+            <div class="accordion__item" style="border-bottom:1px solid var(--line)">
+              <div class="line-item" style="grid-template-columns:96px 1fr auto auto; align-items:center; padding:26px 0">
+                <a class="line-item__media" href="{{ item.url }}" style="aspect-ratio:3/4">
+                  {%- if item.image -%}<img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.product.title | escape }}">{%- endif -%}
+                </a>
+                <div>
+                  <div class="line-item__title" style="font-size:14px"><a href="{{ item.url }}">{{ item.product.title }}</a></div>
+                  {%- unless item.variant.title contains 'Default' -%}<div class="line-item__variant">{{ item.variant.title }}</div>{%- endunless -%}
+                  <div class="line-item__variant">{{ item.final_price | money }} each</div>
+                </div>
+                <div class="qty">
+                  <button type="button" data-qty-btn="down" data-line-key="{{ item.key }}">&minus;</button>
+                  <input type="text" value="{{ item.quantity }}" readonly>
+                  <button type="button" data-qty-btn="up" data-line-key="{{ item.key }}">+</button>
+                </div>
+                <div style="text-align:right; min-width:90px">
+                  <div class="line-item__price">{{ item.final_line_price | money }}</div>
+                  <button type="button" class="line-item__remove" data-line-remove="{{ item.key }}" style="margin-top:8px">Remove</button>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="editorial-split" style="margin-top:48px; align-items:start">
+          <div class="field">
+            <label for="cartNote">Order Note</label>
+            <textarea id="cartNote" name="note" placeholder="Add a note to your order">{{ cart.note }}</textarea>
+          </div>
+          <div style="border:1px solid var(--line); padding:clamp(24px,3vw,40px)">
+            <div class="cart-total"><span>Subtotal</span><span data-cart-total>{{ cart.total_price | money }}</span></div>
+            <p class="cart-tax-note">Shipping &amp; taxes calculated at checkout.</p>
+            <button type="submit" name="checkout" class="btn btn--block mt-s">Proceed to Checkout</button>
+            <a href="{{ routes.all_products_collection_url }}" class="link-underline" style="display:block; text-align:center; margin-top:20px">Continue Shopping</a>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div class="text-center" style="padding:clamp(60px,12vw,140px) 0">
+        <p class="lead">Your bag is empty.</p>
+        <p class="font-brand h-md mt-s">Everything 4 Nothing</p>
+        <div class="mt-l"><a class="btn" href="{{ routes.all_products_collection_url }}">Shop the Drop</a></div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Cart", "tag": "section", "settings": [] }
+{% endschema %}

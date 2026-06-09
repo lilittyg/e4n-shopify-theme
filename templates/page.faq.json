@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "faq",
+      "blocks": {
+        "s1": { "type": "qa", "settings": { "category": "Shipping", "question": "How long does shipping take?", "answer": "<p>Orders ship within 2 business days via tracked express. Domestic 2–4 days, international 5–10 days. Free shipping over $150.</p>" } },
+        "s2": { "type": "qa", "settings": { "category": "Shipping", "question": "Do you ship internationally?", "answer": "<p>Yes — worldwide. Duties and taxes are calculated at checkout for most regions.</p>" } },
+        "r1": { "type": "qa", "settings": { "category": "Returns", "question": "What is your return policy?", "answer": "<p>Unworn pieces may be returned within 14 days of delivery. Numbered limited releases are final sale unless faulty.</p>" } },
+        "r2": { "type": "qa", "settings": { "category": "Returns", "question": "How do I start a return?", "answer": "<p>Email the atelier with your order number and we'll issue a prepaid label for eligible items.</p>" } },
+        "z1": { "type": "qa", "settings": { "category": "Sizing", "question": "How do E4N pieces fit?", "answer": "<p>Cut boxy and oversized by design. Size down for a regular fit. Detailed measurements are on each product page.</p>" } },
+        "z2": { "type": "qa", "settings": { "category": "Sizing", "question": "Is there a size guide?", "answer": "<p>Yes — a garment measurement chart is linked from every product page under the size selector.</p>" } },
+        "o1": { "type": "qa", "settings": { "category": "Orders", "question": "Can I change or cancel my order?", "answer": "<p>Contact us within 2 hours of ordering. Once a numbered piece enters fulfilment it can't be changed.</p>" } },
+        "o2": { "type": "qa", "settings": { "category": "Orders", "question": "What does a numbered run mean?", "answer": "<p>Each release is produced in a finite, numbered quantity and never restocked. Your piece carries its own number.</p>" } },
+        "c1": { "type": "qa", "settings": { "category": "Product Care", "question": "How should I care for my piece?", "answer": "<p>Wash cold inside-out, hang to dry, and never iron directly over graphics.</p>" } },
+        "c2": { "type": "qa", "settings": { "category": "Product Care", "question": "Will the graphics fade?", "answer": "<p>Cared for as directed, prints hold. Heat and tumble-drying are the enemy.</p>" } }
+      },
+      "block_order": ["s1", "s2", "r1", "r2", "z1", "z2", "o1", "o2", "c1", "c2"],
+      "settings": { "eyebrow": "Client Care", "title": "Frequently Asked" }
+    }
+  },
+  "order": ["main"]
+}

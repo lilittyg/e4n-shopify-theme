@@ -1,0 +1,55 @@
+<section class="page-hero section" data-section-type="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div data-reveal>
+        <p class="eyebrow">{{ section.settings.eyebrow | default: 'Reach Us' }}</p>
+        <h1 class="h-xl mt-s">{{ section.settings.title | default: 'Contact' }}</h1>
+        {%- if section.settings.intro != blank -%}<p class="lead mt-s">{{ section.settings.intro }}</p>{%- endif -%}
+
+        <div class="mt-l prose">
+          {%- if section.settings.email != blank -%}<p><span class="eyebrow">Email</span><br>{{ section.settings.email }}</p>{%- endif -%}
+          {%- if section.settings.hours != blank -%}<p><span class="eyebrow">Hours</span><br>{{ section.settings.hours }}</p>{%- endif -%}
+          {%- if section.settings.location != blank -%}<p><span class="eyebrow">Based</span><br>{{ section.settings.location }}</p>{%- endif -%}
+        </div>
+      </div>
+
+      <div data-reveal data-reveal-delay="1">
+        {%- form 'contact', class: 'contact-form' -%}
+          {%- if form.posted_successfully? -%}
+            <div style="border:1px solid var(--line-strong); padding:32px">
+              <p class="eyebrow">Message received</p>
+              <p class="lead mt-s">Thank you — we'll respond after midnight, or sooner.</p>
+            </div>
+          {%- else -%}
+            {%- if form.errors -%}
+              <p class="form-note" style="color:#e0a3a3; margin-bottom:18px">{{ form.errors | default_errors }}</p>
+            {%- endif -%}
+            <div class="field-row">
+              <div class="field"><label for="cName">Name</label><input id="cName" type="text" name="contact[name]" required></div>
+              <div class="field"><label for="cEmail">Email</label><input id="cEmail" type="email" name="contact[email]" required></div>
+            </div>
+            <div class="field"><label for="cSubject">Subject</label><input id="cSubject" type="text" name="contact[subject]"></div>
+            <div class="field"><label for="cMessage">Message</label><textarea id="cMessage" name="contact[body]" required></textarea></div>
+            <button type="submit" class="btn">{{ section.settings.button_label | default: 'Send Message' }}</button>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Reach Us" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Contact" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Questions about an order, a drop, or a collaboration? Send word." },
+    { "type": "text", "id": "email", "label": "Email", "default": "atelier@e4n.com" },
+    { "type": "text", "id": "hours", "label": "Hours", "default": "Mon–Fri · After 18:00" },
+    { "type": "text", "id": "location", "label": "Location", "default": "New York · Online" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send Message" }
+  ]
+}
+{% endschema %}

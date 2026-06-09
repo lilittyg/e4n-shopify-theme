@@ -1,0 +1,45 @@
+{%- comment -%} Global slide-out cart. State is hydrated client-side from /cart.js {%- endcomment -%}
+<aside class="cart-drawer" data-cart-drawer aria-label="Shopping bag" aria-hidden="true">
+  <div class="cart-drawer__head">
+    <h3>{{ 'sections.cart.title' | t | default: 'Your Bag' }}</h3>
+    <button class="cart-drawer__close" data-cart-close aria-label="Close">{% render 'icon', icon: 'close' %}</button>
+  </div>
+
+  <div class="cart-drawer__body" data-cart-items>
+    {%- if cart.item_count > 0 -%}
+      {%- for item in cart.items -%}
+        <div class="line-item" data-key="{{ item.key }}">
+          <a class="line-item__media" href="{{ item.url }}">
+            {%- if item.image -%}<img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.product.title | escape }}" width="76" height="101">{%- endif -%}
+          </a>
+          <div>
+            <div class="line-item__title">{{ item.product.title }}</div>
+            {%- unless item.variant.title contains 'Default' -%}<div class="line-item__variant">{{ item.variant.title }}</div>{%- endunless -%}
+            <div class="line-item__bottom">
+              <div class="qty">
+                <button type="button" data-qty-btn="down" data-line-key="{{ item.key }}" aria-label="Decrease">&minus;</button>
+                <input type="text" value="{{ item.quantity }}" readonly>
+                <button type="button" data-qty-btn="up" data-line-key="{{ item.key }}" aria-label="Increase">+</button>
+              </div>
+              <button class="line-item__remove" data-line-remove="{{ item.key }}">{{ 'sections.cart.remove' | t | default: 'Remove' }}</button>
+            </div>
+          </div>
+          <div class="line-item__price">{{ item.final_line_price | money }}</div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <div class="cart-drawer__empty"><p class="eyebrow">{{ 'sections.cart.empty' | t | default: 'Your bag is empty' }}</p></div>
+    {%- endif -%}
+  </div>
+
+  <div class="cart-drawer__foot" data-cart-foot {% if cart.item_count == 0 %}style="display:none"{% endif %}>
+    <div class="cart-total">
+      <span>{{ 'sections.cart.subtotal' | t | default: 'Subtotal' }}</span>
+      <span data-cart-total>{{ cart.total_price | money }}</span>
+    </div>
+    <p class="cart-tax-note">{{ 'sections.cart.taxes_note' | t | default: 'Shipping & taxes calculated at checkout.' }}</p>
+    <form action="{{ routes.cart_url }}" method="post">
+      <button type="submit" name="checkout" class="btn btn--block">{{ 'sections.cart.checkout' | t | default: 'Proceed to Checkout' }}</button>
+    </form>
+  </div>
+</aside>

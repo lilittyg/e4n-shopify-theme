@@ -1,0 +1,63 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "City Night — Limited Drop 001",
+        "mark": "E4N",
+        "brand_name": "Everything 4 Nothing",
+        "subtext": "A dark luxury streetwear label made in numbered runs. Forged for the hours after midnight.",
+        "button_label": "Shop Collection",
+        "button_label_2": "The Lookbook",
+        "scroll_label": "Scroll"
+      }
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "The Drop",
+        "title": "City Night Limited Drop",
+        "columns": 4,
+        "products_to_show": 4,
+        "link_label": "View all"
+      }
+    },
+    "statement": {
+      "type": "brand-statement",
+      "settings": {
+        "use_default_bg": true,
+        "eyebrow": "The Ethos",
+        "title": "Everything 4 Nothing",
+        "body": "<p>Ambition and emptiness. Purpose and obsession. Desire and the hollow space where fulfilment was supposed to live. We chase meaning through the long hours after midnight — and dress for the chase. Every piece is a numbered artefact of that pursuit: rare, deliberate, and gone when it's gone.</p>",
+        "button_label": "Read the Manifesto"
+      }
+    },
+    "lookbook": {
+      "type": "lookbook",
+      "blocks": {
+        "lb1": { "type": "image", "settings": { "size": "lb-wide", "caption": "Rooftop — 03:14 AM", "fallback": "hero-rooftop.png" } },
+        "lb2": { "type": "image", "settings": { "size": "lb-tall", "caption": "Onyx Hoodie", "fallback": "lookbook-1.png" } },
+        "lb3": { "type": "image", "settings": { "size": "lb-third", "caption": "Skyline Series", "fallback": "lookbook-3.png" } },
+        "lb4": { "type": "image", "settings": { "size": "lb-third", "caption": "Empty Streets", "fallback": "lookbook-2.png" } },
+        "lb5": { "type": "image", "settings": { "size": "lb-third", "caption": "Numbered Run", "fallback": "shirt-back.png" } }
+      },
+      "block_order": ["lb1", "lb2", "lb3", "lb4", "lb5"],
+      "settings": {
+        "eyebrow": "Editorial",
+        "title": "Lookbook — After Midnight",
+        "link_label": "Enter the Lookbook"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Limited Access",
+        "heading": "Join the Drop",
+        "subheading": "Be first to access future releases and limited collections.",
+        "button_label": "Request Access",
+        "note": "No noise. Only the drops."
+      }
+    }
+  },
+  "order": ["hero", "featured", "statement", "lookbook", "newsletter"]
+}
