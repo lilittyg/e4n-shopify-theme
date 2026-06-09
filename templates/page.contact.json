@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -6,11 +15,14 @@
         "eyebrow": "Reach Us",
         "title": "Contact",
         "intro": "Questions about an order, a drop, or a collaboration? Send word.",
-        "email": "atelier@e4n.com",
+        "email": "chris7bebusiness@gmail.com",
         "hours": "Mon–Fri · After 18:00",
-        "location": "New York · Online"
+        "location": "New York · Online",
+        "button_label": "Send Message"
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
