@@ -16,7 +16,7 @@
         "title": "Contact",
         "intro": "Questions about an order, a drop, or a collaboration? Send word.",
         "email": "chris7bebusiness@gmail.com",
-        "hours": "{{ page.title }}Instagram",
+        "hours": "",
         "location": "San Diego · Online",
         "button_label": "Send Message"
       }
