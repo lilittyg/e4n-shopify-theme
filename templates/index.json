@@ -93,6 +93,7 @@
         "lb5": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/6DF0B6B9-5C14-4F3A-9DD2-04A3D6EADB92.png",
             "size": "lb-third",
             "caption": "",
             "link": "https://e4nclothing.com/products/city-nights-tee",
