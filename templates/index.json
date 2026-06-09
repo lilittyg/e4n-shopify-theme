@@ -65,7 +65,7 @@
           "settings": {
             "size": "lb-tall",
             "caption": "Hoodie",
-            "link": "",
+            "link": "https://e4nclothing.com/products/city-nights-hoodie?variant=45472303480892&utm_source=ig&utm_medium=social&utm_content=link_in_bio",
             "fallback": "lookbook-1.png"
           }
         },
@@ -73,7 +73,7 @@
           "type": "image",
           "settings": {
             "size": "lb-third",
-            "caption": "",
+            "caption": "TEE",
             "link": "",
             "fallback": "lookbook-3.png"
           }
@@ -83,7 +83,7 @@
           "settings": {
             "size": "lb-third",
             "caption": "",
-            "link": "",
+            "link": "https://e4nclothing.com/products/city-nights-tee",
             "fallback": "lookbook-2.png"
           }
         },
@@ -92,7 +92,7 @@
           "settings": {
             "size": "lb-third",
             "caption": "",
-            "link": "",
+            "link": "https://e4nclothing.com/products/city-nights-tee",
             "fallback": "shirt-back.png"
           }
         }
