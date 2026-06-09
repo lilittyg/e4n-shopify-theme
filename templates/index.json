@@ -63,6 +63,7 @@
         "lb2": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/BE05A3F9-8505-47A8-8A5D-50B35194F24F.png",
             "size": "lb-tall",
             "caption": "Hoodie",
             "link": "https://e4nclothing.com/products/city-nights-hoodie?variant=45472303480892&utm_source=ig&utm_medium=social&utm_content=link_in_bio",
@@ -72,6 +73,7 @@
         "lb3": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/560381B5-E9F9-4FB4-A44A-F79D1F85FDCC.png",
             "size": "lb-third",
             "caption": "TEE",
             "link": "https://e4nclothing.com/products/city-nights-tee",
@@ -81,6 +83,7 @@
         "lb4": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/1DFBA1FC-906F-48C8-9892-1DD38368196B.png",
             "size": "lb-third",
             "caption": "",
             "link": "https://e4nclothing.com/products/city-nights-tee",
