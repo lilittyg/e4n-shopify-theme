@@ -1,14 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
+        "image_alt": "E4N campaign",
         "eyebrow": "City Night — Limited Drop 001",
         "mark": "E4N",
         "brand_name": "Everything 4 Nothing",
         "subtext": "A dark luxury streetwear label made in numbered runs. Forged for the hours after midnight.",
         "button_label": "Shop Collection",
+        "button_link": "",
         "button_label_2": "The Lookbook",
+        "button_link_2": "",
         "scroll_label": "Scroll"
       }
     },
@@ -17,9 +29,11 @@
       "settings": {
         "eyebrow": "The Drop",
         "title": "City Night Limited Drop",
+        "collection": "",
         "columns": 4,
         "products_to_show": 4,
-        "link_label": "View all"
+        "link_label": "View all",
+        "link_url": ""
       }
     },
     "statement": {
@@ -29,23 +43,71 @@
         "eyebrow": "The Ethos",
         "title": "Everything 4 Nothing",
         "body": "<p>Ambition and emptiness. Purpose and obsession. Desire and the hollow space where fulfilment was supposed to live. We chase meaning through the long hours after midnight — and dress for the chase. Every piece is a numbered artefact of that pursuit: rare, deliberate, and gone when it's gone.</p>",
-        "button_label": "Read the Manifesto"
+        "button_label": "Read the Manifesto",
+        "button_link": ""
       }
     },
     "lookbook": {
       "type": "lookbook",
       "blocks": {
-        "lb1": { "type": "image", "settings": { "size": "lb-wide", "caption": "Rooftop — 03:14 AM", "fallback": "hero-rooftop.png" } },
-        "lb2": { "type": "image", "settings": { "size": "lb-tall", "caption": "Onyx Hoodie", "fallback": "lookbook-1.png" } },
-        "lb3": { "type": "image", "settings": { "size": "lb-third", "caption": "Skyline Series", "fallback": "lookbook-3.png" } },
-        "lb4": { "type": "image", "settings": { "size": "lb-third", "caption": "Empty Streets", "fallback": "lookbook-2.png" } },
-        "lb5": { "type": "image", "settings": { "size": "lb-third", "caption": "Numbered Run", "fallback": "shirt-back.png" } }
+        "lb1": {
+          "type": "image",
+          "settings": {
+            "size": "lb-wide",
+            "caption": "Rooftop — 03:14 AM",
+            "link": "",
+            "fallback": "hero-rooftop.png"
+          }
+        },
+        "lb2": {
+          "type": "image",
+          "settings": {
+            "size": "lb-tall",
+            "caption": "Onyx Hoodie",
+            "link": "",
+            "fallback": "lookbook-1.png"
+          }
+        },
+        "lb3": {
+          "type": "image",
+          "settings": {
+            "size": "lb-third",
+            "caption": "Skyline Series",
+            "link": "",
+            "fallback": "lookbook-3.png"
+          }
+        },
+        "lb4": {
+          "type": "image",
+          "settings": {
+            "size": "lb-third",
+            "caption": "Empty Streets",
+            "link": "",
+            "fallback": "lookbook-2.png"
+          }
+        },
+        "lb5": {
+          "type": "image",
+          "settings": {
+            "size": "lb-third",
+            "caption": "Numbered Run",
+            "link": "",
+            "fallback": "shirt-back.png"
+          }
+        }
       },
-      "block_order": ["lb1", "lb2", "lb3", "lb4", "lb5"],
+      "block_order": [
+        "lb1",
+        "lb2",
+        "lb3",
+        "lb4",
+        "lb5"
+      ],
       "settings": {
         "eyebrow": "Editorial",
         "title": "Lookbook — After Midnight",
-        "link_label": "Enter the Lookbook"
+        "link_label": "Enter the Lookbook",
+        "link_url": ""
       }
     },
     "newsletter": {
@@ -59,5 +121,11 @@
       }
     }
   },
-  "order": ["hero", "featured", "statement", "lookbook", "newsletter"]
+  "order": [
+    "hero",
+    "featured",
+    "statement",
+    "lookbook",
+    "newsletter"
+  ]
 }
