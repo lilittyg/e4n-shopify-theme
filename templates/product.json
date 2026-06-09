@@ -1,11 +1,25 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-product",
       "settings": {
-        "shipping_note": "Complimentary express shipping on numbered orders over $150."
+        "shipping_note": "",
+        "shipping_text": "<p>Numbered orders ship within 2 business days via tracked express. Free over $150. International duties calculated at checkout.</p>",
+        "returns_text": "<p>Unworn pieces may be returned within 14 days of delivery. Numbered limited releases are final sale unless faulty.</p>",
+        "care_text": "<p>Wash cold inside-out. Hang to dry. Do not iron graphics. Treat it like it's one of 200 — because it is.</p>"
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
