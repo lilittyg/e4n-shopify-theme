@@ -40,7 +40,7 @@
     "statement": {
       "type": "brand-statement",
       "settings": {
-        "use_default_bg": true,
+        "use_default_bg": false,
         "eyebrow": "The Ethos",
         "title": "Everything 4 Nothing",
         "body": "<p>Ambition and emptiness. Purpose and obsession. Desire and the hollow space where fulfilment was supposed to live. We chase meaning through the long hours after midnight — and dress for the chase. Every piece is a numbered artefact of that pursuit: rare, deliberate, and gone when it's gone.</p>",
