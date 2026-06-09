@@ -1,0 +1,8 @@
+# Normalize text files to LF for Shopify
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.woff binary
+*.woff2 binary
